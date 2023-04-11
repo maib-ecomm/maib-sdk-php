@@ -47,6 +47,7 @@ The Signature Key is required to validate the notification signature on the Call
 ### Get Access Token with Project ID and Project Secret:
 ```
 $auth = MaibAuth::getInstance()->generateToken(PROJECT_ID, PROJECT_SECRET);
+
 // Save received data in your DB
 $token = $auth->accessToken;
 $tokenExpiresAt = time() + $auth->expiresIn;
@@ -56,6 +57,7 @@ $refreshExpiresAt = time() + $auth->refreshExpiresIn;
 ### Get Access Token with Refresh Token:
 ```
 $auth = MaibAuth::getInstance()->generateToken($refreshToken);
+
 // Save received data in your DB
 $token = $auth->accessToken;
 $tokenExpiresAt = time() + $auth->expiresIn;
@@ -64,7 +66,7 @@ $refreshExpiresAt = time() + $auth->refreshExpiresIn;
 ```
 ### Direct Payment:
 ```
-// Set up payment required data
+// Set up payment required parameters
 $data = array(
     'amount' => 10.25,
     'currency' => 'EUR',
@@ -86,7 +88,7 @@ Payment status and data you will receive on the Callback URL.
 
 ### Two-Step Payment. Payment authorization (hold):
 ```
-// Set up payment required data
+// Set up payment required parameters
 $data = array(
     'amount' => 10.25,
     'currency' => 'EUR',
@@ -94,11 +96,11 @@ $data = array(
 );
 
 // Initiate payment authorization
-$pay = MaibApi::getInstance()->pay($data, $token);
+$hold = MaibApi::getInstance()->hold($data, $token);
 
 // Save payment ID in your DB
-$payUrl = $pay->payUrl;
-$payId = $pay->payId;
+$payUrl = $hold->payUrl;
+$payId = $hold->payId;
 
 // Redirect Client to maib checkout page
 header("Location: " . $payUrl);
@@ -108,7 +110,7 @@ Payment status and data you will receive on the Callback URL.
 
 ### Two-Step Payment. Payment capture (complete):
 ```
-// Set up Payment ID
+// Payment ID is required parameter
 $data = array(
    'payId' => 'f16a9006-128a-46bc-8e2a-77a6ee99df75'
 );
@@ -126,23 +128,23 @@ $confirmAmount = $complete->confirmAmount;
 
 ### Refund Payment:
 ```
-// Set up Payment ID
+// Payment ID is required parameter
 $data = array(
    'payId' => 'f16a9006-128a-46bc-8e2a-77a6ee99df75'
 );
 
 // Initiate Refund Payment
-$pay = MaibApi::getInstance()->refund($data, $token);
+$refund = MaibApi::getInstance()->refund($data, $token);
 
 // Update Payment status in your DB
-$payId = $pay->payId;
-$status = $pay->status;
-$statusMessage= $pay->statusMessage;
-$refundAmount = $pay->refundAmount;
+$payId = $refund->payId;
+$status = $refund->status;
+$statusMessage= $refund->statusMessage;
+$refundAmount = $refund->refundAmount;
 ```
 ### Payment Information:
 ```
-// Set up Payment ID
+// Payment ID
 $id = "f16a9006-128a-46bc-8e2a-77a6ee99df75";
 
 // Initiate Payment Info
