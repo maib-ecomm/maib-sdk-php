@@ -176,7 +176,7 @@ $payId = $saveRecurring->payId;
 header("Location: " . $payUrl);
 die;
 ```
-Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL
+Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL.
 
 ### Recurring Payments. Execute Recurring Payment:
 ```
@@ -208,7 +208,7 @@ $data = array(
 );
 
 // Initiate Card Registration for One-Click Payments
-$saveOneclick = MaibApi::getInstance()->saveRecurring($data, $token);
+$saveOneclick = MaibApi::getInstance()->saveOneclick($data, $token);
 
 // Save payId in your system
 $payUrl = $saveOneclick->payUrl;
@@ -218,7 +218,7 @@ $payId = $saveOneclick->payId;
 header("Location: " . $payUrl);
 die;
 ```
-Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL
+Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL.
 
 ### One-Click Payments. Execute One-Click Payment:
 ```
@@ -231,16 +231,18 @@ $data = array(
 );
 
 // Execute One-Click Payment
-$executeRecurring = MaibApi::getInstance()->executeRecurring($data, $token);
+$executeOneclick = MaibApi::getInstance()->executeOneclick($data, $token);
 
-// Save payment status and data in your system
-$billerId = $executeRecurring->billerId;
-$payId = $executeRecurring->payId;
-$status = $executeRecurring->status;
-$statusMessage= $executeRecurring->statusMessage;
-$amount = $executeRecurring->amount;
-$currency = $executeRecurring->currency;
+// Save payment ID in your DB
+$payUrl = $executeOneclick->payUrl;
+$payId = $executeOneclick->payId;
+
+// Redirect Client to maib checkout page
+header("Location: " . $payUrl);
+die;
 ```
+One-click Payment status and data you will receive on the Callback URL.
+
 
 
 
