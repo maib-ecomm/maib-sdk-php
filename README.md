@@ -144,7 +144,7 @@ $refundAmount = $refund->refundAmount;
 ### Payment Information:
 ```
 // Payment ID
-$id = "f16a9006-128a-46bc-8e2a-77a6ee99df75";
+$id = 'f16a9006-128a-46bc-8e2a-77a6ee99df75';
 
 // Initiate Payment Info
 $payInfo = MaibApi::getInstance()->payInfo($id, $token);
