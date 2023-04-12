@@ -1,1 +1,25 @@
 
+{
+  "name": "maib-ecomm/maib-sdk-php",
+  "description": "PHP SDK for API maib ecommerce",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/maib-ecomm/maib-sdk-php",
+  "keywords": ["maib", "ecommerce", "payments", "api", "sdk"],
+  "authors": [
+    {
+      "name": "Lupu C.",
+      "email": "constanting.lupu@maib.md"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "MaibEcomm\\MaibSdkPhp\\": "src/"
+    }
+  }
+}
