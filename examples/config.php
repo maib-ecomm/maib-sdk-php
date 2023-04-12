@@ -1,11 +1,4 @@
 <?php
-// require_once 'vendor/autoload.php';
-use MaibEcomm\MaibSdk;
-// use MaibEcomm\MaibSdk\MaibApi;
-// use MaibEcomm\MaibSdk\MaibSdk;
-
-// Uncoment for use whitout Composer
-
 require dirname(__FILE__) . '/../src/MaibAuth.php';
 require dirname(__FILE__) . '/../src/MaibApi.php';
 require dirname(__FILE__) . '/../src/MaibSdk.php';
