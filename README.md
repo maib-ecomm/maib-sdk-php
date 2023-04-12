@@ -95,7 +95,7 @@ $data = array(
     'clientIp' => '135.250.245.121'
 );
 
-// Initiate payment authorization
+// Initiate Payment Authorization
 $hold = MaibApi::getInstance()->hold($data, $token);
 
 // Save payment ID in your DB
@@ -156,4 +156,54 @@ $statusMessage= $payInfo->statusMessage;
 $amount = $payInfo->amount;
 $currency = $payInfo->currency;
 ```
+### Recurring Payments. Card Registration:
+```
+// Set up the request data
+$data = array(
+    'billerExpiry' => '1230',
+    'currency' => 'EUR',
+    'clientIp' => '135.250.245.121'
+);
+
+// Initiate Card Registration for Recurring Payments
+$saveRecurring = MaibApi::getInstance()->saveRecurring($data, $token);
+
+// Save payId in your system
+$payUrl = $saveRecurring->payUrl;
+$payId = $saveRecurring->payId;
+
+// Redirect Client to maib checkout page
+header("Location: " . $payUrl);
+die;
+```
+Card ID (billerId) you will receive on the Callback URL
+
+### Recurring Payments. Execute Recurring Payment:
+```
+// Set up the request data
+$data = array(
+    'billerId' => 't78i8006-458a-46bc-9e0a-89a6ee11df68',
+    'amount' => 6.25,
+    'currency' => 'EUR',
+    'clientIp' => '135.250.245.121'
+);
+
+// Execute Recurring Payment
+$executeRecurring = MaibApi::getInstance()->executeRecurring($data, $token);
+
+// Save payment status and data in your system
+$billerId = $executeRecurring->billerId;
+$payId = $executeRecurring->payId;
+$status = $executeRecurring->status;
+$statusMessage= $executeRecurring->statusMessage;
+$amount = $executeRecurring->amount;
+$currency = $executeRecurring->currency;
+```
+
+
+
+
+
+
+
 
