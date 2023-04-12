@@ -120,7 +120,6 @@ $complete = MaibApi::getInstance()->complete($data, $token);
 
 // Update Payment status in your DB
 $payId = $complete->payId;
-$orderId = $complete->orderId;
 $status = $complete->status;
 $statusMessage= $complete->statusMessage;
 $confirmAmount = $complete->confirmAmount;
