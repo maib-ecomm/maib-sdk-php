@@ -18,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "MaibEcomm\\MaibSdkPhp\\": "src/"
+      "MaibEcomm\\MaibSdk\\": "src/"
     }
   }
 }
