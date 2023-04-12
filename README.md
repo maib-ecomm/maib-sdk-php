@@ -80,7 +80,7 @@ $pay = MaibApi::getInstance()->pay($data, $token);
 $payUrl = $pay->payUrl;
 $payId = $pay->payId;
 
-// Redirect Client to maib checkout page
+// Redirect Client to the maib checkout page
 header("Location: " . $payUrl);
 die;
 ```
@@ -102,7 +102,7 @@ $hold = MaibApi::getInstance()->hold($data, $token);
 $payUrl = $hold->payUrl;
 $payId = $hold->payId;
 
-// Redirect Client to maib checkout page
+// Redirect Client to the maib checkout page
 header("Location: " . $payUrl);
 die;
 ```
@@ -172,7 +172,7 @@ $saveRecurring = MaibApi::getInstance()->saveRecurring($data, $token);
 $payUrl = $saveRecurring->payUrl;
 $payId = $saveRecurring->payId;
 
-// Redirect Client to maib checkout page
+// Redirect Client to the maib checkout page
 header("Location: " . $payUrl);
 die;
 ```
@@ -218,7 +218,7 @@ $payId = $saveOneclick->payId;
 header("Location: " . $payUrl);
 die;
 ```
-Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL.
+One-Click Payments data (billerId/billerExpiry) you will receive on the Callback URL.
 
 ### One-Click Payments. Execute One-Click Payment:
 ```
@@ -237,11 +237,11 @@ $executeOneclick = MaibApi::getInstance()->executeOneclick($data, $token);
 $payUrl = $executeOneclick->payUrl;
 $payId = $executeOneclick->payId;
 
-// Redirect Client to maib checkout page
+// Redirect Client to the maib checkout page for 3D-Secure authentication
 header("Location: " . $payUrl);
 die;
 ```
-One-click Payment status and data you will receive on the Callback URL.
+One-Click Payment status and data you will receive on the Callback URL.
 
 
 
