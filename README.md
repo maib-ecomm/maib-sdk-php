@@ -20,7 +20,7 @@ composer require maib-ecomm/maib-sdk-php
 ```
 To use the package, use Composer's autoload:
 ```
-require "vendor/autoload.php";
+require_once 'vendor/autoload.php';
 ```
 ### Manual
 Download the latest release and include the config.php file in your project.
