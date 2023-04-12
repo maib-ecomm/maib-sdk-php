@@ -158,7 +158,7 @@ $currency = $payInfo->currency;
 ```
 ### Recurring Payments. Card Registration:
 ```
-// Set up the request data
+// Set up required parameters
 $data = array(
     'billerExpiry' => '1230',
     'currency' => 'EUR',
@@ -176,16 +176,15 @@ $payId = $saveRecurring->payId;
 header("Location: " . $payUrl);
 die;
 ```
-Card ID (billerId) you will receive on the Callback URL
+Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL
 
 ### Recurring Payments. Execute Recurring Payment:
 ```
-// Set up the request data
+// Set up required parameters
 $data = array(
     'billerId' => 't78i8006-458a-46bc-9e0a-89a6ee11df68',
     'amount' => 6.25,
-    'currency' => 'EUR',
-    'clientIp' => '135.250.245.121'
+    'currency' => 'EUR'
 );
 
 // Execute Recurring Payment
@@ -199,10 +198,49 @@ $statusMessage= $executeRecurring->statusMessage;
 $amount = $executeRecurring->amount;
 $currency = $executeRecurring->currency;
 ```
+### One-Click Payments. Card Registration:
+```
+// Set up required parameters
+$data = array(
+    'billerExpiry' => '1230',
+    'currency' => 'EUR',
+    'clientIp' => '135.250.245.121'
+);
 
+// Initiate Card Registration for One-Click Payments
+$saveOneclick = MaibApi::getInstance()->saveRecurring($data, $token);
 
+// Save payId in your system
+$payUrl = $saveOneclick->payUrl;
+$payId = $saveOneclick->payId;
 
+// Redirect Client to maib checkout page
+header("Location: " . $payUrl);
+die;
+```
+Recurring Payments data (billerId/billerExpiry) you will receive on the Callback URL
 
+### One-Click Payments. Execute One-Click Payment:
+```
+// Set up required parameters
+$data = array(
+    'billerId' => 't78i8006-458a-46bc-9e0a-89a6ee11df68',
+    'amount' => 6.25,
+    'currency' => 'EUR',
+    'clientIp' => '135.250.245.121'
+);
+
+// Execute One-Click Payment
+$executeRecurring = MaibApi::getInstance()->executeRecurring($data, $token);
+
+// Save payment status and data in your system
+$billerId = $executeRecurring->billerId;
+$payId = $executeRecurring->payId;
+$status = $executeRecurring->status;
+$statusMessage= $executeRecurring->statusMessage;
+$amount = $executeRecurring->amount;
+$currency = $executeRecurring->currency;
+```
 
 
 
