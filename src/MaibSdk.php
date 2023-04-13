@@ -9,18 +9,12 @@ class ClientException extends RuntimeException {}
 
 class MaibSdk
 {
-    // maib ecommerce API base url  
-// const BASE_URL = 'https://api.maibmerchants.md/v1/';
-const BASE_URL = 'https://wp.smartmozg.ru/';  
+// maib ecommerce API base url  
+const BASE_URL = 'https://api.maibmerchants.md/v1/';
 
 // maib ecommerce API endpoints
-  
-//const GET_TOKEN = 'generate-token';
-const GET_TOKEN = 'maib/token.json';
-  
-//const DIRECT_PAY = 'pay';
-const DIRECT_PAY = 'maib/pay.json';
-
+const GET_TOKEN = 'generate-token';
+const DIRECT_PAY = 'pay';
 const HOLD = 'hold';
 const COMPLETE = 'complete';
 const REFUND = 'refund';
@@ -31,9 +25,9 @@ const SAVE_ONECLICK = 'savecard-oneclick';
 const EXE_ONECLICK = 'execute-oneclick';
 const DELETE_CARD = 'delete-card';
 
-    const HTTP_GET = 'GET';
-    const HTTP_POST = 'POST';
-    const HTTP_DELETE = 'DELETE';
+const HTTP_GET = 'GET';
+const HTTP_POST = 'POST';
+const HTTP_DELETE = 'DELETE';
     
     private static $instance;
     private $baseUri;
