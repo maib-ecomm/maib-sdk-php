@@ -43,7 +43,7 @@ define('SIGNATURE_KEY', 'YOUR_SIGNATURE_SECRET');
 Project Secret and Signature Key are available after Project activation.
 
 The Signature Key is required to validate the notification signature on the Callback URL (/examples/callbackUrl.php).
-## SDK usage examples and sample code
+## SDK usage examples
 ### Get Access Token with Project ID and Project Secret:
 ```
 $auth = MaibAuth::getInstance()->generateToken(PROJECT_ID, PROJECT_SECRET);
