@@ -124,7 +124,6 @@ const HTTP_DELETE = 'DELETE';
         }
 
         // Debugging statement to log the request and response
-      echo "Request: $method $url " . json_encode($data) . " Response: $response";
         error_log("Request: $method $url " . json_encode($data) . " Response: $response");
 
         return $decodedResponse;
