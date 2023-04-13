@@ -32,7 +32,7 @@ Add SDK class:
 ```
 <?php 
 require_once 'vendor/autoload.php';
-use MaibEcomm\MaibSdkPhp;
+use MaibEcomm\MaibSdk;
 ```
 Add configurations:
 ```
