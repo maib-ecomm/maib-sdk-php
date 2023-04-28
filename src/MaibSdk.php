@@ -1,8 +1,8 @@
 <?php
 
 namespace MaibEcomm\MaibSdk;
-class_alias('MaibEcomm\MaibSdk\MaibAuth', 'MaibAuth');
-class_alias('MaibEcomm\MaibSdk\MaibApi', 'MaibApi');
+class_alias('MaibEcomm\MaibSdk\MaibAuthFactory', 'MaibAuthFactory');
+class_alias('MaibEcomm\MaibSdk\MaibApiFactory', 'MaibApiFactory');
 
 use RuntimeException;
 class ClientException extends RuntimeException {}
