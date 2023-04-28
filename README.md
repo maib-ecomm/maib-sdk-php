@@ -1,5 +1,5 @@
 # maib-sdk-php
-PHP SDK for maib Ecommerce API
+PHP SDK for **maib** e-commerce API
 
 API docs: https://docs.maibmerchants.md
 
