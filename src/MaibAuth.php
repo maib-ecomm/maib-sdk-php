@@ -6,28 +6,29 @@ use RuntimeException;
 
 class TokenException extends RuntimeException {}
 
+// This is the factory class, responsible for creating new instances of the MaibAuth class.
+class MaibAuthFactory
+{
+    /**
+     * Creates an instance of the MaibAuth class.
+     *
+     * @return MaibAuth The created instance.
+     */
+    public static function create()
+    {
+        // The factory creates a new instance of the MaibSdk class, which is passed to the MaibAuth constructor.
+        $httpClient = new MaibSdk();
+        return new MaibAuth($httpClient);
+    }
+}
+
 class MaibAuth
 {
-   // private static $instance;
     private $httpClient;
 
-    private function __construct()
+    public function __construct(MaibSdk $httpClient)
     {
-        $this->httpClient = new MaibSdk();
-    }
-    
-    /**
-     * Returns a singleton instance of the Auth class.
-     *
-     * @return Auth An instance of the Auth class.
-     */
-    public static function getInstance()
-    {
-        static $instance;
-        if (!isset($instance)) {
-            $instance = new MaibAuth();
-        }
-        return $instance;
+        $this->httpClient = $httpClient;
     }
     
     /**
