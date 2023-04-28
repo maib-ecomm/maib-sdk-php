@@ -312,10 +312,9 @@ class MaibApi
     if (isset($data['clientIp']) && !filter_var($data['clientIp'], FILTER_VALIDATE_IP)) {
         throw new PaymentException("Invalid 'clientIp' parameter. Please provide a valid IP address.");
     }
-    if (isset($data['language']) && !in_array($data['language'], ['ro', 'en', 'ru'])) {
-        throw new PaymentException("Invalid 'language' parameter. Language should be one of 'ro', 'en', or 'ru'.");
+    if (isset($data['language']) && strlen($data['language']) !== 2) {
+        throw new PaymentException("Invalid 'language' parameter. Should be 2 characters.");
     }
-
     if (isset($data['clientName']) && strlen($data['clientName']) > 128) {
         throw new PaymentException("Invalid 'clientName' parameter. Client name should not exceed 128 characters.");
     }
