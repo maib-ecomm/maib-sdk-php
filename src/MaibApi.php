@@ -6,22 +6,29 @@ use RuntimeException;
 
 class PaymentException extends RuntimeException {}
 
+// This is the factory class, responsible for creating new instances of the MaibApi class.
+class MaibApiFactory
+{
+    /**
+     * Creates a new instance of MaibApi.
+     *
+     * @return MaibApi
+     */
+    public static function create()
+    {
+        // The factory creates a new instance of the MaibSdk class, which is passed to the MaibApi constructor.
+        $httpClient = new MaibSdk();
+        return new MaibApi($httpClient);
+    }
+}
+
 class MaibApi
 {
     private $httpClient;
 
-    private function __construct()
+    public function __construct(MaibSdk $httpClient)
     {
-        $this->httpClient = new MaibSdk();
-    }
-
-    public static function getInstance()
-    {
-        static $instance;
-        if (!isset($instance)) {
-            $instance = new MaibApi();
-        }
-        return $instance;
+        $this->httpClient = $httpClient;
     }
     
     /**
@@ -315,6 +322,7 @@ class MaibApi
     if (isset($data['language']) && strlen($data['language']) !== 2) {
         throw new PaymentException("Invalid 'language' parameter. Should be 2 characters.");
     }
+
     if (isset($data['clientName']) && strlen($data['clientName']) > 128) {
         throw new PaymentException("Invalid 'clientName' parameter. Client name should not exceed 128 characters.");
     }
@@ -361,6 +369,4 @@ class MaibApi
 
     return true;
     }
-
-
 }
