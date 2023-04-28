@@ -1,7 +1,7 @@
 <?php
-require dirname(__FILE__) . '/../src/MaibAuth.php';
-require dirname(__FILE__) . '/../src/MaibApi.php';
-require dirname(__FILE__) . '/../src/MaibSdk.php';
+require __DIR__ . '/../src/MaibAuth.php';
+require __DIR__ . '/../src/MaibApi.php';
+require __DIR__ . '/../src/MaibSdk.php';
 
 // Project settings from maibmerchants.md
 // Project Secret and Signature Key are available after Project activation
