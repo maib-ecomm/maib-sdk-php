@@ -1,5 +1,5 @@
 <?php
-require dirname(__FILE__) . '/config.php';
+require __DIR__  . '/config.php';
 
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);

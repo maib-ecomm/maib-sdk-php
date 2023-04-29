@@ -1,5 +1,5 @@
 <?php
-require dirname(__FILE__) . '/config.php';
+require __DIR__  . '/config.php';
 
 // Get Access Token with Project ID and Project Secret
 $auth = MaibAuthFactory::create()->generateToken(PROJECT_ID, PROJECT_SECRET);

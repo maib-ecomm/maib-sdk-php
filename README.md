@@ -46,7 +46,7 @@ The Signature Key is required to validate the notification signature on the Call
 ## SDK usage examples
 ### Get Access Token with Project ID and Project Secret:
 ```
-$auth = MaibAuth::getInstance()->generateToken(PROJECT_ID, PROJECT_SECRET);
+$auth = MaibAuthFactory::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
 
 // Save received data in your DB
 $token = $auth->accessToken;
@@ -56,7 +56,7 @@ $refreshExpiresAt = time() + $auth->refreshExpiresIn;
 ```
 ### Get Access Token with Refresh Token:
 ```
-$auth = MaibAuth::getInstance()->generateToken($refreshToken);
+$auth = MaibAuthFactory::create()->generateToken($refreshToken);
 
 // Save received data in your DB
 $token = $auth->accessToken;
@@ -74,7 +74,7 @@ $data = array(
 );
 
 // Initiate Direct Payment
-$pay = MaibApi::getInstance()->pay($data, $token);
+$pay = MaibApiFactory::create()->pay($data, $token);
 
 // Save payment ID in your DB
 $payUrl = $pay->payUrl;
@@ -96,7 +96,7 @@ $data = array(
 );
 
 // Initiate Payment Authorization
-$hold = MaibApi::getInstance()->hold($data, $token);
+$hold = MaibApiFactory::create()->hold($data, $token);
 
 // Save payment ID in your DB
 $payUrl = $hold->payUrl;
@@ -116,7 +116,7 @@ $data = array(
 );
 
 // Complete 2-Step Payment
-$complete = MaibApi::getInstance()->complete($data, $token);
+$complete = MaibApiFactory::create()->complete($data, $token);
 
 // Update Payment status in your DB
 $payId = $complete->payId;
@@ -133,7 +133,7 @@ $data = array(
 );
 
 // Initiate Refund Payment
-$refund = MaibApi::getInstance()->refund($data, $token);
+$refund = MaibApiFactory::create()->refund($data, $token);
 
 // Update Payment status in your DB
 $payId = $refund->payId;
@@ -147,7 +147,7 @@ $refundAmount = $refund->refundAmount;
 $id = 'f16a9006-128a-46bc-8e2a-77a6ee99df75';
 
 // Initiate Payment Info
-$payInfo = MaibApi::getInstance()->payInfo($id, $token);
+$payInfo = MaibApiFactory::create()->payInfo($id, $token);
 
 // Receive Payment status and data 
 $payId = $payInfo->payId;
@@ -166,7 +166,7 @@ $data = array(
 );
 
 // Initiate Card Registration for Recurring Payments
-$saveRecurring = MaibApi::getInstance()->saveRecurring($data, $token);
+$saveRecurring = MaibApiFactory::create()->saveRecurring($data, $token);
 
 // Save payId in your system
 $payUrl = $saveRecurring->payUrl;
@@ -188,7 +188,7 @@ $data = array(
 );
 
 // Execute Recurring Payment
-$executeRecurring = MaibApi::getInstance()->executeRecurring($data, $token);
+$executeRecurring = MaibApiFactory::create()->executeRecurring($data, $token);
 
 // Save payment status and data in your system
 $billerId = $executeRecurring->billerId;
@@ -208,7 +208,7 @@ $data = array(
 );
 
 // Initiate Card Registration for One-Click Payments
-$saveOneclick = MaibApi::getInstance()->saveOneclick($data, $token);
+$saveOneclick = MaibApiFactory::create()->saveOneclick($data, $token);
 
 // Save payId in your system
 $payUrl = $saveOneclick->payUrl;
@@ -231,7 +231,7 @@ $data = array(
 );
 
 // Execute One-Click Payment
-$executeOneclick = MaibApi::getInstance()->executeOneclick($data, $token);
+$executeOneclick = MaibApiFactory::create()->executeOneclick($data, $token);
 
 // Save payment ID in your DB
 $payUrl = $executeOneclick->payUrl;

@@ -1,8 +1,8 @@
 <?php
-require dirname(__FILE__) . '/config.php';
+require __DIR__  . '/config.php';
 
 // Get Access Token with Project ID and Project Secret
-$auth = MaibAuth::getInstance()->generateToken(PROJECT_ID, PROJECT_SECRET);
+$auth = MaibAuthFactory::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
 $token = $auth->accessToken;
 
 // Set up the payment data
@@ -12,7 +12,7 @@ $data = array(
 );
 
 // Initiate Payment Capture
-$complete = MaibApi::getInstance()->complete($data, $token);
+$complete = MaibApiFactory::create()->complete($data, $token);
 
 // Receive Payment status and data 
 $payId = $complete->payId;
