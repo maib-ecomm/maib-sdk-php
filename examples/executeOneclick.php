@@ -37,7 +37,7 @@ $payId = $executeOneclick->payId;
 $orderId = $executeOneclick->orderId;
 
 // Redirect Client to maib checkout page
-//header("Location: " . $payUrl);
-//die;
+header("Location: " . $payUrl);
+die;
 
 // Payment status and data you will receive on the Callback URL
