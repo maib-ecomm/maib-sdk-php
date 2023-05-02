@@ -2,7 +2,7 @@
 require __DIR__  . '/config.php';
 
 // Get Access Token with Project ID and Project Secret
-$auth = MaibAuthFactory::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
+$auth = MaibAuthRequest::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
 $token = $auth->accessToken;
 
 // Set up the request data
@@ -28,7 +28,7 @@ $data = array(
 );
 
 // Initiate Direct Payment
-$executeRecurring = MaibApiFactory::create()->executeRecurring($data, $token);
+$executeRecurring = MaibApiRequest::create()->executeRecurring($data, $token);
 
 // Update status payment in your system
 $billerId = $executeRecurring->billerId;

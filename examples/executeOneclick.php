@@ -2,7 +2,7 @@
 require __DIR__  . '/config.php';
 
 // Get Access Token with Project ID and Project Secret
-$auth = MaibAuthFactory::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
+$auth = MaibAuthRequest::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
 $token = $auth->accessToken;
 
 // Set up the request data
@@ -29,7 +29,7 @@ $data = array(
 );
 
 // Initiate Execute One-click Payment
-$executeOneclick = MaibApiFactory::create()->executeOneclick($data, $token);
+$executeOneclick = MaibApiRequest::create()->executeOneclick($data, $token);
 
 // Save payId in your system
 $payUrl = $executeOneclick->payUrl;

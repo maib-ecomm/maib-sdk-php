@@ -2,7 +2,7 @@
 require __DIR__  . '/config.php';
 
 // Get Access Token with Project ID and Project Secret
-$auth = MaibAuthFactory::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
+$auth = MaibAuthRequest::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
 $token = $auth->accessToken;
 
 // Set up the payment data
@@ -37,7 +37,7 @@ $data = array(
 );
 
 // Initiate Payment Authorization
-$hold = MaibApiFactory::create()->hold($data, $token);
+$hold = MaibApiRequest::create()->hold($data, $token);
 
 // Save payId in your system
 $payUrl = $hold->payUrl;
