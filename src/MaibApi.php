@@ -7,7 +7,7 @@ use RuntimeException;
 class PaymentException extends RuntimeException {}
 
 // This is the factory class, responsible for creating new instances of the MaibApi class.
-class MaibApiFactory
+class MaibApiRequest
 {
     /**
      * Creates a new instance of MaibApi.
