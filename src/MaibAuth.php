@@ -7,7 +7,7 @@ use RuntimeException;
 class TokenException extends RuntimeException {}
 
 // This is the factory class, responsible for creating new instances of the MaibAuth class.
-class MaibAuthFactory
+class MaibAuthRequest
 {
     /**
      * Creates an instance of the MaibAuth class.
