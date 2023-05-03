@@ -43,6 +43,7 @@ class MaibApi
     $requiredParams = ['amount', 'currency', 'clientIp'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::DIRECT_PAY, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -62,6 +63,7 @@ class MaibApi
     $requiredParams = ['amount', 'currency', 'clientIp'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::HOLD, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -81,6 +83,7 @@ class MaibApi
     $requiredParams = ['payId'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::COMPLETE, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -100,6 +103,7 @@ class MaibApi
     $requiredParams = ['payId'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::REFUND, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -118,6 +122,7 @@ class MaibApi
     {
         try {
         $this->validateIdParam($id);
+	$this->validateAccessToken($token);
         return $this->sendRequestGet(MaibSdk::PAY_INFO, $id, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -136,6 +141,7 @@ class MaibApi
     {
         try {
         $this->validateIdParam($id);
+	$this->validateAccessToken($token);
         return $this->sendRequestDelete(MaibSdk::DELETE_CARD, $id, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -155,6 +161,7 @@ class MaibApi
     $requiredParams = ['billerExpiry', 'currency', 'clientIp'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::SAVE_REC, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -174,6 +181,7 @@ class MaibApi
     $requiredParams = ['billerId', 'amount', 'currency'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::EXE_REC, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -193,6 +201,7 @@ class MaibApi
     $requiredParams = ['billerExpiry', 'currency', 'clientIp'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::SAVE_ONECLICK, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
@@ -212,6 +221,7 @@ class MaibApi
     $requiredParams = ['billerId', 'amount', 'currency', 'clientIp'];
         try {
         $this->validatePayParams($data, $requiredParams);
+	$this->validateAccessToken($token);
         return $this->sendRequestPost(MaibSdk::EXE_ONECLICK, $data, $token);
         } catch (PaymentException $e) {
         error_log('Invalid request: ' . $e->getMessage());
