@@ -275,6 +275,12 @@ class MaibApi
     }
     }
   
+   public function validateAccessToken($token) {
+    if (!is_string($token) || empty($token)) {
+        throw new PaymentException("Access token is not valid. It should be a non-empty string.");
+    }
+   }
+	
   private function validateIdParam($id)
   {
   if (!isset($id)) {
