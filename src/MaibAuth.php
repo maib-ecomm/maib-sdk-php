@@ -42,31 +42,41 @@ class MaibAuth
      */
     public function generateToken($projectId = null, $projectSecret = null, $refreshToken = null)
     {
-        $postData = array();
+    if ($projectId === null && $projectSecret === null && $refreshToken === null) {
+        throw new TokenException("Either Project ID and Project Secret or Refresh Token must be provided!");
+    }
     
-        if ($projectId !== null && $projectSecret !== null) {
-            $postData['projectId'] = $projectId;
-            $postData['projectSecret'] = $projectSecret;
-        } else if ($refreshToken === null) {
-            throw new TokenException("Project ID and Project Secret or Refresh Token must be provided!");
-        }
+    if ($projectId !== null && $projectSecret !== null && !is_string($projectId) && !is_string($projectSecret)) {
+        throw new InvalidArgumentException("Project ID and Project Secret must be strings!");
+    }
     
-        if ($refreshToken !== null) {
-            $postData['refreshToken'] = $refreshToken;
-        }
+    if ($refreshToken !== null && !is_string($refreshToken)) {
+        throw new InvalidArgumentException("Refresh Token must be a string!");
+    }
     
-        try {
-            $response = $this->httpClient->post(MaibSdk::GET_TOKEN, $postData);
-        } catch (HttpException $e) {
-            throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage()}");
-        }
+    $postData = array();
     
-        if (!$response->ok) {
-            $this->handleError($response->errors);
-        }
+    if ($projectId !== null && $projectSecret !== null) {
+        $postData['projectId'] = $projectId;
+        $postData['projectSecret'] = $projectSecret;
+    }
     
-        $result = $response->result;
-        return $result;
+    if ($refreshToken !== null) {
+        $postData['refreshToken'] = $refreshToken;
+    }
+    
+    try {
+        $response = $this->httpClient->post(MaibSdk::GET_TOKEN, $postData);
+    } catch (HttpException $e) {
+        throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage()}");
+    }
+    
+    if (!$response->ok) {
+        $this->handleError($response->errors);
+    }
+    
+    $result = $response->result;
+    return $result;
     }
   
     /**
