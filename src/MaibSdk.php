@@ -131,15 +131,13 @@ const HTTP_DELETE = 'DELETE';
 
 private function getErrorMessage($response, $statusCode)
 {
-    $errorMessage = 'An error occurred: HTTP ' . $statusCode;
+    $errorMessage = '';
     if ($response) {
         $responseObj = json_decode($response);
-        if (isset($responseObj->error_description)) {
-            $errorMessage = $responseObj->error_description;
-        } elseif (isset($responseObj->message)) {
-            $errorMessage = $responseObj->message;
-        } elseif (isset($responseObj->error)) {
-            $errorMessage = $responseObj->error;
+        if (isset($responseObj->errors[0]->errorMessage)) {
+            $errorMessage = $responseObj->errors[0]->errorMessage;
+        } else {
+            $errorMessage = 'Unknown error occurred.';
         }
     }
     return $errorMessage;
