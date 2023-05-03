@@ -32,41 +32,48 @@ class MaibAuth
     }
     
     /**
-     * Generates a new access token using the given project ID and secret.
+     * Generates a new access token using the given project ID and secret or refresh token.
      *
-     * @param string|null $projectId The project ID to use for generating the token.
+     * @param string|null $idOrRefresh The project ID or refresh token to use for generating the token.
      * @param string|null $projectSecret The project secret to use for generating the token.
-     * @param string|null $refreshToken The refresh token to use for generating the token.
      * @return array The response body as an associative array.
      * @throws RuntimeException If the API returns an error response.
      */
-    public function generateToken($projectId = null, $projectSecret = null, $refreshToken = null)
+    public function generateToken($idOrRefresh = null, $projectSecret = null)
     {
-        $postData = array();
+    if ($idOrRefresh === null && $projectSecret === null) {
+        throw new TokenException("Either Project ID and Project Secret or Refresh Token must be provided!");
+    }
     
-        if ($projectId !== null && $projectSecret !== null) {
-            $postData['projectId'] = $projectId;
-            $postData['projectSecret'] = $projectSecret;
-        } else if ($refreshToken === null) {
-            throw new TokenException("Project ID and Project Secret or Refresh Token must be provided!");
+    $postData = array();
+    
+    if ($idOrRefresh !== null && $projectSecret !== null) {
+        if (!is_string($idOrRefresh) || !is_string($projectSecret)) {
+            throw new TokenException("Project ID and Project Secret must be strings!");
         }
-    
-        if ($refreshToken !== null) {
-            $postData['refreshToken'] = $refreshToken;
+        
+        $postData['projectId'] = $idOrRefresh;
+        $postData['projectSecret'] = $projectSecret;
+    } elseif ($idOrRefresh !== null && $projectSecret === null) {
+        if (!is_string($idOrRefresh)) {
+            throw new TokenException("Refresh Token must be a string!");
         }
+        
+        $postData['refreshToken'] = $idOrRefresh;
+    } 
     
-        try {
-            $response = $this->httpClient->post(MaibSdk::GET_TOKEN, $postData);
-        } catch (HttpException $e) {
-            throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage()}");
-        }
+    try {
+        $response = $this->httpClient->post(MaibSdk::GET_TOKEN, $postData);
+    } catch (HttpException $e) {
+        throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage()}");
+    }
     
-        if (!$response->ok) {
-            $this->handleError($response->errors);
-        }
+    if (!$response->ok) {
+        $this->handleError($response->errors);
+    }
     
-        $result = $response->result;
-        return $result;
+    $result = $response->result;
+    return $result;
     }
   
     /**
