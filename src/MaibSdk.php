@@ -129,8 +129,8 @@ const HTTP_DELETE = 'DELETE';
         return $decodedResponse;
     }
 
-private function getErrorMessage($response, $statusCode)
-{
+    private function getErrorMessage($response, $statusCode)
+    {
     $errorMessage = '';
     if ($response) {
         $responseObj = json_decode($response);
@@ -141,5 +141,5 @@ private function getErrorMessage($response, $statusCode)
         }
     }
     return $errorMessage;
-}
+    }
 }
