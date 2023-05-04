@@ -356,8 +356,8 @@ class MaibApi
     if (isset($data['orderId']) && (!is_string($data['orderId']) || strlen($data['orderId']) > 36)) {
     throw new PaymentException("Invalid 'orderId' parameter. Should be a string and not exceed 36 characters.");
     }
-    if (isset($data['delivery']) && (!is_numeric($data['delivery']) || $data['delivery'] <= 0)) {
-        throw new PaymentException("Invalid 'delivery' parameter. Delivery fee should be a numeric value greater than >= 0.");
+    if (isset($data['delivery']) && (!is_numeric($data['delivery']) || $data['delivery'] < 0)) {
+        throw new PaymentException("Invalid 'delivery' parameter. Delivery fee should be a numeric value >= 0.");
     }
     if (isset($data['items']) && (!is_array($data['items']) || empty($data['items']))) {
         throw new PaymentException("Invalid 'items' parameter. Items should be a non-empty array.");
@@ -370,10 +370,10 @@ class MaibApi
         if (isset($item['name']) && (!is_string($item['name']) || strlen($item['name']) > 128)) {
             throw new PaymentException("Invalid 'name' parameter in the 'items' array. Should be a string and not exceed 128 characters.");
         }
-        if ((isset($item['price'])) && (!is_numeric($item['price']) || $item['price'] <= 0)) {
+        if ((isset($item['price'])) && (!is_numeric($item['price']) || $item['price'] < 0)) {
             throw new PaymentException("Invalid 'price' parameter in the 'items' array. Item price should be a numeric value >= 0.");
         }
-        if ((isset($item['quantity'])) && (!is_numeric($item['quantity']) || $item['quantity'] <= 0)) {
+        if ((isset($item['quantity'])) && (!is_numeric($item['quantity']) || $item['quantity'] < 0)) {
       throw new PaymentException("Invalid 'quantity' parameter in the 'items' array. Item quantity should be a numeric value >= 0.");
         }
     }
