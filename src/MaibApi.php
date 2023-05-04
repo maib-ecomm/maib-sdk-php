@@ -320,19 +320,19 @@ class MaibApi
     if (isset($data['payId']) && (!is_string($data['payId']) || strlen($data['payId']) > 36)) {
         throw new PaymentException("Invalid 'payId' parameter. Should be a string of 36 characters.");
     }
-    if (isset($data['confirmAmount']) && (!is_numeric($data['confirmAmount']) || $data['confirmAmount'] < 0)) {
+    if (isset($data['confirmAmount']) && (!is_numeric($data['confirmAmount']) || $data['confirmAmount'] < 0 || is_string($data['confirmAmount']))) {
         throw new PaymentException("Invalid 'confirmAmount' parameter. Should be a numeric value > 0.");
     }
-    if (isset($data['amount']) && (!is_numeric($data['amount']) || $data['amount'] < 1)) {
+    if (isset($data['amount']) && (!is_numeric($data['amount']) || $data['amount'] < 1 || is_string($data['amount']))) {
         throw new PaymentException("Invalid 'amount' parameter. Should be a numeric value >= 1.");
     }
-    if (isset($data['refundAmount']) && (!is_numeric($data['refundAmount']) || $data['refundAmount'] < 0)) {
+    if (isset($data['refundAmount']) && (!is_numeric($data['refundAmount']) || $data['refundAmount'] < 0 || is_string($data['refundAmount']))) {
         throw new PaymentException("Invalid 'refundAmount' parameter. Should be a numeric value > 0.");
     }
-    if (isset($data['currency']) && !in_array($data['currency'], ['MDL', 'EUR', 'USD'])) {
+    if (isset($data['currency']) && (!is_string($data['currency']) || !in_array($data['currency'], ['MDL', 'EUR', 'USD']))) {
         throw new PaymentException("Invalid 'currency' parameter. Currency should be one of 'MDL', 'EUR', or 'USD'.");
     }
-    if (isset($data['clientIp']) && !filter_var($data['clientIp'], FILTER_VALIDATE_IP)) {
+    if (isset($data['clientIp']) && (!is_string($data['clientIp']) || !filter_var($data['clientIp'], FILTER_VALIDATE_IP))) {
         throw new PaymentException("Invalid 'clientIp' parameter. Please provide a valid IP address.");
     }
     
@@ -356,7 +356,7 @@ class MaibApi
     if (isset($data['orderId']) && (!is_string($data['orderId']) || strlen($data['orderId']) > 36)) {
     throw new PaymentException("Invalid 'orderId' parameter. Should be a string and not exceed 36 characters.");
     }
-    if (isset($data['delivery']) && (!is_numeric($data['delivery']) || $data['delivery'] < 0)) {
+    if (isset($data['delivery']) && (!is_numeric($data['delivery']) || $data['delivery'] < 0 || is_string($data['delivery']))) {
         throw new PaymentException("Invalid 'delivery' parameter. Delivery fee should be a numeric value >= 0.");
     }
     if (isset($data['items']) && (!is_array($data['items']) || empty($data['items']))) {
@@ -370,22 +370,22 @@ class MaibApi
         if (isset($item['name']) && (!is_string($item['name']) || strlen($item['name']) > 128)) {
             throw new PaymentException("Invalid 'name' parameter in the 'items' array. Should be a string and not exceed 128 characters.");
         }
-        if ((isset($item['price'])) && (!is_numeric($item['price']) || $item['price'] < 0)) {
+        if ((isset($item['price'])) && (!is_numeric($item['price']) || $item['price'] < 0 || is_string($item['price']))) {
             throw new PaymentException("Invalid 'price' parameter in the 'items' array. Item price should be a numeric value >= 0.");
         }
-        if ((isset($item['quantity'])) && (!is_numeric($item['quantity']) || $item['quantity'] < 0)) {
+        if ((isset($item['quantity'])) && (!is_numeric($item['quantity']) || $item['quantity'] < 0 || is_string($item['quantity']))) {
       throw new PaymentException("Invalid 'quantity' parameter in the 'items' array. Item quantity should be a numeric value >= 0.");
         }
     }
 	}
-    if (isset($item['callbackUrl']) && !filter_var($data['callbackUrl'], FILTER_VALIDATE_URL)) {
-      throw new PaymentException('Invalid callbackUrl parameter');
+    if (isset($item['callbackUrl']) && (!is_string($data['callbackUrl']) || !filter_var($data['callbackUrl'], FILTER_VALIDATE_URL))) {
+      throw new PaymentException('Invalid callbackUrl parameter! Should be a string url.');
     }
-    if (isset($item['okUrl']) && !filter_var($data['okUrl'], FILTER_VALIDATE_URL)) {
-      throw new PaymentException('Invalid okUrl parameter');
+    if (isset($item['okUrl']) && (!is_string($data['okUrl']) || !filter_var($data['okUrl'], FILTER_VALIDATE_URL))) {
+      throw new PaymentException('Invalid okUrl parameter. Should be a string url.');
     }
-    if (isset($item['failUrl']) && !filter_var($data['failUrl'], FILTER_VALIDATE_URL)) {
-      throw new PaymentException('Invalid failUrl parameter');
+    if (isset($item['failUrl']) && (!is_string($data['failUrl']) || !filter_var($data['failUrl'], FILTER_VALIDATE_URL))) {
+      throw new PaymentException('Invalid failUrl parameter. Should be a string url.');
     }
 
     return true;
