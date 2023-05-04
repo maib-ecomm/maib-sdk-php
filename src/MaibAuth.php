@@ -34,32 +34,32 @@ class MaibAuth
     /**
      * Generates a new access token using the given project ID and secret or refresh token.
      *
-     * @param string|null $idOrRefresh The project ID or refresh token to use for generating the token.
+     * @param string|null $ProjectIdOrRefresh The project ID or refresh token to use for generating the token.
      * @param string|null $projectSecret The project secret to use for generating the token.
      * @return array The response body as an associative array.
      * @throws RuntimeException If the API returns an error response.
      */
-    public function generateToken($idOrRefresh = null, $projectSecret = null)
+    public function generateToken($ProjectIdOrRefresh = null, $projectSecret = null)
     {
-    if ($idOrRefresh === null && $projectSecret === null) {
+    if ($ProjectIdOrRefresh === null && $projectSecret === null) {
         throw new TokenException("Either Project ID and Project Secret or Refresh Token must be provided!");
     }
     
     $postData = array();
     
-    if ($idOrRefresh !== null && $projectSecret !== null) {
-        if (!is_string($idOrRefresh) || !is_string($projectSecret)) {
+    if ($ProjectIdOrRefresh !== null && $projectSecret !== null) {
+        if (!is_string($ProjectIdOrRefresh) || !is_string($projectSecret)) {
             throw new TokenException("Project ID and Project Secret must be strings!");
         }
         
-        $postData['projectId'] = $idOrRefresh;
+        $postData['projectId'] = $ProjectIdOrRefresh;
         $postData['projectSecret'] = $projectSecret;
-    } elseif ($idOrRefresh !== null && $projectSecret === null) {
-        if (!is_string($idOrRefresh)) {
+    } elseif ($ProjectIdOrRefresh !== null && $projectSecret === null) {
+        if (!is_string($ProjectIdOrRefresh)) {
             throw new TokenException("Refresh Token must be a string!");
         }
         
-        $postData['refreshToken'] = $idOrRefresh;
+        $postData['refreshToken'] = $ProjectIdOrRefresh;
     } 
     
     try {
