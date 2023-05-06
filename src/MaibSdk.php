@@ -137,7 +137,7 @@ const HTTP_DELETE = 'DELETE';
         if (isset($responseObj->errors[0]->errorMessage)) {
             $errorMessage = $responseObj->errors[0]->errorMessage;
         } else {
-            $errorMessage = 'Unknown error occurred.';
+            $errorMessage = 'Unknown error details.';
         }
     }
     return $errorMessage;
