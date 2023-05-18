@@ -33,11 +33,9 @@ $sign = base64_encode(hash('sha256', $signString, true)); // Generate signature
 
 if ($sign === $data['signature']) // Compare the generated signature with the received signature on Callback URL
 {
-  echo "Signature is valid!"; 
   // Signature is valid, process the data from $data['result']
 
 } else {
-  echo "Signature is invalid!"; 
   // Signature is invalid, reject the request
 }
 }
