@@ -12,9 +12,7 @@ namespace MaibEcomm\MaibSdk;
 
 use RuntimeException;
 
-class PaymentException extends RuntimeException
-{
-}
+class PaymentException extends RuntimeException {}
 
 // This is the factory class, responsible for creating new instances of the MaibApi class.
 class MaibApiRequest
