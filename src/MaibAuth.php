@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * PHP SDK for maib Ecommerce API
+ *
+ * @package maib-ecomm/maib-sdk-php
+ * @category SDK
+ * @author maib
+ * @developer Lupu Constantin
+ * @license MIT
+ */
 namespace MaibEcomm\MaibSdk;
 
 use RuntimeException;
@@ -30,7 +38,7 @@ class MaibAuth
     {
         $this->httpClient = $httpClient;
     }
-    
+
     /**
      * Generates a new access token using the given project ID and secret or refresh token.
      *
@@ -41,41 +49,53 @@ class MaibAuth
      */
     public function generateToken($ProjectIdOrRefresh = null, $projectSecret = null)
     {
-    if ($ProjectIdOrRefresh === null && $projectSecret === null) {
-        throw new TokenException("Either Project ID and Project Secret or Refresh Token must be provided!");
-    }
-    
-    $postData = array();
-    
-    if ($ProjectIdOrRefresh !== null && $projectSecret !== null) {
-        if (!is_string($ProjectIdOrRefresh) || !is_string($projectSecret)) {
-            throw new TokenException("Project ID and Project Secret must be strings!");
+        if ($ProjectIdOrRefresh === null && $projectSecret === null)
+        {
+            throw new TokenException("Project ID and Project Secret or Refresh Token must be provided!");
         }
-        
-        $postData['projectId'] = $ProjectIdOrRefresh;
-        $postData['projectSecret'] = $projectSecret;
-    } elseif ($ProjectIdOrRefresh !== null && $projectSecret === null) {
-        if (!is_string($ProjectIdOrRefresh)) {
-            throw new TokenException("Refresh Token must be a string!");
+
+        $postData = array();
+
+        if ($ProjectIdOrRefresh !== null && $projectSecret !== null)
+        {
+            if (!is_string($ProjectIdOrRefresh) || !is_string($projectSecret))
+            {
+                throw new TokenException("Project ID and Project Secret must be strings!");
+            }
+
+            $postData['projectId'] = $ProjectIdOrRefresh;
+            $postData['projectSecret'] = $projectSecret;
         }
-        
-        $postData['refreshToken'] = $ProjectIdOrRefresh;
-    } 
-    
-    try {
-        $response = $this->httpClient->post(MaibSdk::GET_TOKEN, $postData);
-    } catch (HttpException $e) {
-        throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage()}");
+        elseif ($ProjectIdOrRefresh !== null && $projectSecret === null)
+        {
+            if (!is_string($ProjectIdOrRefresh))
+            {
+                throw new TokenException("Refresh Token must be a string!");
+            }
+
+            $postData['refreshToken'] = $ProjectIdOrRefresh;
+        }
+
+        try
+        {
+            $response = $this
+                ->httpClient
+                ->post(MaibSdk::GET_TOKEN, $postData);
+        }
+        catch(Exception $e)
+        {
+            throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage() }");
+        }
+
+        if (!$response->ok)
+        {
+            $this->handleError($response->errors);
+        }
+
+        $result = $response->result;
+        return $result;
     }
-    
-    if (!$response->ok) {
-        $this->handleError($response->errors);
-    }
-    
-    $result = $response->result;
-    return $result;
-    }
-  
+
     /**
      * Handles errors returned by the API.
      *
@@ -84,10 +104,13 @@ class MaibAuth
      */
     private function handleError($errors)
     {
-        if (!empty($errors)) {
+        if (!empty($errors))
+        {
             $error = $errors[0];
             throw new TokenException("Error {$error->errorCode}: {$error->errorMessage}");
-        } else {
+        }
+        else
+        {
             throw new TokenException("Unknown error occurred");
         }
     }
