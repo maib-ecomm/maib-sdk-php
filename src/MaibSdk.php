@@ -13,6 +13,7 @@ class_alias('MaibEcomm\MaibSdk\MaibAuthRequest', 'MaibAuthRequest');
 class_alias('MaibEcomm\MaibSdk\MaibApiRequest', 'MaibApiRequest');
 
 use RuntimeException;
+
 class ClientException extends RuntimeException {}
 
 class MaibSdk
