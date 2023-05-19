@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * PHP SDK for maib Ecommerce API
+ *
+ * @package maib-ecomm/maib-sdk-php
+ * @category SDK
+ * @author maib
+ * @developer Lupu Constantin
+ * @license MIT
+ */
 namespace MaibEcomm\MaibSdk;
 class_alias('MaibEcomm\MaibSdk\MaibAuthRequest', 'MaibAuthRequest');
 class_alias('MaibEcomm\MaibSdk\MaibApiRequest', 'MaibApiRequest');
@@ -9,38 +17,39 @@ class ClientException extends RuntimeException {}
 
 class MaibSdk
 {
-// maib ecommerce API base url  
-const BASE_URL = 'https://api.maibmerchants.md/v1/';
+    // maib ecommerce API base url
+    const BASE_URL = 'https://api.maibmerchants.md/v1/';
 
-// maib ecommerce API endpoints
-const GET_TOKEN = 'generate-token';
-const DIRECT_PAY = 'pay';
-const HOLD = 'hold';
-const COMPLETE = 'complete';
-const REFUND = 'refund';
-const PAY_INFO = 'pay-info';
-const SAVE_REC = 'savecard-recurring';
-const EXE_REC = 'execute-recurring';
-const SAVE_ONECLICK = 'savecard-oneclick';
-const EXE_ONECLICK = 'execute-oneclick';
-const DELETE_CARD = 'delete-card';
+    // maib ecommerce API endpoints
+    const GET_TOKEN = 'generate-token';
+    const DIRECT_PAY = 'pay';
+    const HOLD = 'hold';
+    const COMPLETE = 'complete';
+    const REFUND = 'refund';
+    const PAY_INFO = 'pay-info';
+    const SAVE_REC = 'savecard-recurring';
+    const EXE_REC = 'execute-recurring';
+    const SAVE_ONECLICK = 'savecard-oneclick';
+    const EXE_ONECLICK = 'execute-oneclick';
+    const DELETE_CARD = 'delete-card';
 
-const HTTP_GET = 'GET';
-const HTTP_POST = 'POST';
-const HTTP_DELETE = 'DELETE';
-    
+    const HTTP_GET = 'GET';
+    const HTTP_POST = 'POST';
+    const HTTP_DELETE = 'DELETE';
+
     private static $instance;
     private $baseUri;
 
     public function __construct()
     {
         $this->baseUri = MaibSdk::BASE_URL;
-      
+
     }
 
     public static function getInstance()
     {
-        if (!self::$instance) {
+        if (!self::$instance)
+        {
             self::$instance = new self();
         }
         return self::$instance;
@@ -71,7 +80,8 @@ const HTTP_DELETE = 'DELETE';
     {
         $url = $this->baseUri . $uri;
 
-        if ($id !== null) {
+        if ($id !== null)
+        {
             $url .= '/' . $id;
         }
 
@@ -85,17 +95,17 @@ const HTTP_DELETE = 'DELETE';
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-      
-        if ($method === self::HTTP_POST) {
+
+        if ($method === self::HTTP_POST)
+        {
             $payload = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         }
 
-        $headers = [
-            'Content-Type: application/json',
-        ];
+        $headers = ['Content-Type: application/json', ];
 
-        if ($token !== null) {
+        if ($token !== null)
+        {
             $headers[] = 'Authorization: Bearer ' . $token;
         }
 
@@ -103,7 +113,8 @@ const HTTP_DELETE = 'DELETE';
 
         $response = curl_exec($ch);
 
-        if (curl_errno($ch)) {
+        if (curl_errno($ch))
+        {
             $errorMessage = 'An error occurred: ' . curl_error($ch);
             curl_close($ch);
             throw new ClientException($errorMessage);
@@ -112,14 +123,16 @@ const HTTP_DELETE = 'DELETE';
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($statusCode >= 400) {
+        if ($statusCode >= 400)
+        {
             $errorMessage = $this->getErrorMessage($response, $statusCode);
-          throw new ClientException('An error occurred: HTTP ' . $statusCode . ': ' . $errorMessage);
+            throw new ClientException('An error occurred: HTTP ' . $statusCode . ': ' . $errorMessage);
         }
 
         $decodedResponse = json_decode($response, false);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (json_last_error() !== JSON_ERROR_NONE)
+        {
             throw new ClientException('Failed to decode response: ' . json_last_error_msg());
         }
 
@@ -131,15 +144,20 @@ const HTTP_DELETE = 'DELETE';
 
     private function getErrorMessage($response, $statusCode)
     {
-    $errorMessage = '';
-    if ($response) {
-        $responseObj = json_decode($response);
-        if (isset($responseObj->errors[0]->errorMessage)) {
-            $errorMessage = $responseObj->errors[0]->errorMessage;
-        } else {
-            $errorMessage = 'Unknown error details.';
+        $errorMessage = '';
+        if ($response)
+        {
+            $responseObj = json_decode($response);
+            if (isset($responseObj->errors[0]
+                ->errorMessage))
+            {
+                $errorMessage = $responseObj->errors[0]->errorMessage;
+            }
+            else
+            {
+                $errorMessage = 'Unknown error details.';
+            }
         }
-    }
-    return $errorMessage;
+        return $errorMessage;
     }
 }
