@@ -160,6 +160,7 @@ $currency = $payInfo->currency;
 ```
 // Set up required parameters
 $data = array(
+    'email' => 'customer@example.com',
     'billerExpiry' => '1230',
     'currency' => 'EUR',
     'clientIp' => '135.250.245.121'
@@ -202,6 +203,7 @@ $currency = $executeRecurring->currency;
 ```
 // Set up required parameters
 $data = array(
+    'email' => 'customer@example.com',
     'billerExpiry' => '1230',
     'currency' => 'EUR',
     'clientIp' => '135.250.245.121'
@@ -242,8 +244,3 @@ header("Location: " . $payUrl);
 die;
 ```
 One-Click Payment status and data you will receive on the Callback URL.
-
-
-
-
-
