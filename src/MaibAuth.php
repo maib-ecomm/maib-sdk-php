@@ -92,31 +92,42 @@ class MaibAuth
             throw new TokenException("HTTP error while sending POST request to endpoint generate-token: {$e->getMessage() }");
         }
 
-        if (!$response->ok)
-        {
-            $this->handleError($response->errors);
-        }
-
-        $result = $response->result;
+        $result = $this->handleResponse($response, MaibSdk::GET_TOKEN);
         return $result;
     }
 
     /**
      * Handles errors returned by the API.
      *
-     * @param array $errors The error messages returned by the API.
-     * @throws RuntimeException If the API returns an error response.
+     * @param object $response The API response object.
+     * @param string $endpoint The endpoint name.
+     * @return mixed The result extracted from the response.
+     * @throws RuntimeException If the API returns an error response or an invalid response.
      */
-    private function handleError($errors)
+    private function handleResponse($response, $endpoint)
     {
-        if (!empty($errors))
+        if (isset($response->ok) && $response->ok)
         {
-            $error = $errors[0];
-            throw new TokenException("Error {$error->errorCode}: {$error->errorMessage}");
+            if (isset($response->result))
+            {
+                return $response->result;
+            }
+            else
+            {
+                throw new TokenException("Invalid response received from server for endpoint $endpoint: missing 'result' field");
+            }
         }
         else
         {
-            throw new TokenException("Unknown error occurred");
+            if (isset($response->errors))
+            {
+                $error = $response->errors[0];
+                throw new TokenException("Error sending request to endpoint $endpoint: {$error->errorMessage} ({$error->errorCode})");
+            }
+            else
+            {
+                throw new TokenException("Invalid response received from server for endpoint $endpoint: missing 'ok' and 'errors' fields");
+            }
         }
     }
 }
