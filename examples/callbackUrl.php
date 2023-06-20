@@ -17,11 +17,12 @@ if (isset($data['signature'])) {
     function sortByKeyRecursive(array $array)
     {
         ksort($array, SORT_STRING);
-        foreach ($array as $key => $value) {
+        foreach ($array as $key => &$value) {
             if (is_array($value)) {
-                $array[$key] = sortByKeyRecursive($value);
+                $value = sortByKeyRecursive($value);
             }
         }
+        unset($value); // Unset the reference variable to avoid potential issues
         return $array;
     }
 
