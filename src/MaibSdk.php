@@ -34,6 +34,7 @@ class MaibSdk
     const EXE_ONECLICK = 'execute-oneclick';
     const DELETE_CARD = 'delete-card';
 
+    // HTTP request methods
     const HTTP_GET = 'GET';
     const HTTP_POST = 'POST';
     const HTTP_DELETE = 'DELETE';
@@ -44,9 +45,13 @@ class MaibSdk
     public function __construct()
     {
         $this->baseUri = MaibSdk::BASE_URL;
-
     }
-
+    
+    /**
+     * Get the instance of MaibSdk (Singleton pattern)
+     *
+     * @return MaibSdk
+     */
     public static function getInstance()
     {
         if (!self::$instance)
@@ -56,6 +61,15 @@ class MaibSdk
         return self::$instance;
     }
 
+    /**
+     * Send a POST request
+     *
+     * @param string $uri
+     * @param array $data
+     * @param string|null $token
+     * @return mixed
+     * @throws ClientException
+     */
     public function post($uri, array $data = [], $token = null)
     {
         $url = $this->buildUrl($uri);
@@ -63,6 +77,15 @@ class MaibSdk
         return $response;
     }
 
+    /**
+     * Send a GET request
+     *
+     * @param string $uri
+     * @param string $id
+     * @param string $token
+     * @return mixed
+     * @throws ClientException
+     */
     public function get($uri, $id, $token)
     {
         $url = $this->buildUrl($uri, $id);
@@ -70,6 +93,15 @@ class MaibSdk
         return $response;
     }
 
+    /**
+     * Send a DELETE request
+     *
+     * @param string $uri
+     * @param string $id
+     * @param string $token
+     * @return mixed
+     * @throws ClientException
+     */
     public function delete($uri, $id, $token)
     {
         $url = $this->buildUrl($uri, $id);
@@ -77,6 +109,13 @@ class MaibSdk
         return $response;
     }
 
+    /**
+     * Build the complete URL for the request
+     *
+     * @param string $uri
+     * @param string|null $id
+     * @return string
+     */
     private function buildUrl($uri, $id = null)
     {
         $url = $this->baseUri . $uri;
@@ -89,6 +128,16 @@ class MaibSdk
         return $url;
     }
 
+    /**
+     * Send a request using cURL and handle the response.
+     *
+     * @param string $method The HTTP method for the request.
+     * @param string $url The complete URL for the request.
+     * @param array $data The data to be sent with the request.
+     * @param string|null $token The authorization token (optional).
+     * @return mixed The decoded response from the API.
+     * @throws ClientException if an error occurs during the request or if the response has an error status code.
+     */
     private function sendRequest($method, $url, array $data = [], $token = null)
     {
         $ch = curl_init($url);
@@ -143,6 +192,13 @@ class MaibSdk
         return $decodedResponse;
     }
 
+    /**
+     * Retrieves the error message from the API response.
+     *
+     * @param string $response The API response.
+     * @param int $statusCode The HTTP status code of the response.
+     * @return string The error message extracted from the response, or a default message if not found.
+     */
     private function getErrorMessage($response, $statusCode)
     {
         $errorMessage = '';
