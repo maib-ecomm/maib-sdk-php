@@ -14,7 +14,7 @@ use RuntimeException;
 
 class PaymentException extends RuntimeException {}
 
-// This is the factory class, responsible for creating new instances of the MaibApi class.
+// Factory class responsible for creating new instances of the MaibAuth class.
 class MaibApiRequest
 {
     /**
@@ -24,7 +24,7 @@ class MaibApiRequest
      */
     public static function create()
     {
-        // The factory creates a new instance of the MaibSdk class, which is passed to the MaibApi constructor.
+        // Create a new instance of the MaibSdk class and pass it to the MaibAuth constructor.
         $httpClient = new MaibSdk();
         return new MaibApi($httpClient);
     }
@@ -33,7 +33,12 @@ class MaibApiRequest
 class MaibApi
 {
     private $httpClient;
-
+    
+    /**
+     * Constructs a new MaibApi instance.
+     *
+     * @param MaibSdk $httpClient The HTTP client for sending requests.
+     */
     public function __construct(MaibSdk $httpClient)
     {
         $this->httpClient = $httpClient;
@@ -268,12 +273,13 @@ class MaibApi
     }
 
     /**
-     * Sends a request to the specified endpoint.
+     * Sends a POST request to the specified endpoint.
      *
      * @param string $endpoint The endpoint to send the request to.
      * @param array $data The parameters for the request.
      * @param string $token The authentication token.
      * @throws PaymentException if the request fails.
+     * @return mixed The response from the API.
      */
     private function sendRequestPost($endpoint, $data, $token)
     {
@@ -289,7 +295,16 @@ class MaibApi
         }
         return $this->handleResponse($response, $endpoint);
     }
-
+    
+    /**
+     * Sends a GET request to the specified endpoint.
+     *
+     * @param string $endpoint The endpoint to send the request to.
+     * @param string $id The ID for the request.
+     * @param string $token The authentication token.
+     * @throws PaymentException if the request fails.
+     * @return mixed The response from the API.
+     */
     private function sendRequestGet($endpoint, $id, $token)
     {
         try
@@ -305,6 +320,15 @@ class MaibApi
         return $this->handleResponse($response, $endpoint);
     }
 
+    /**
+     * Sends a DELETE request to the specified endpoint.
+     *
+     * @param string $endpoint The endpoint to send the request to.
+     * @param string $id The ID for the request.
+     * @param string $token The authentication token.
+     * @throws PaymentException if the request fails.
+     * @return mixed The response from the API.
+     */
     private function sendRequestDelete($endpoint, $id, $token)
     {
         try
@@ -319,7 +343,15 @@ class MaibApi
         }
         return $this->handleResponse($response, $endpoint);
     }
-
+    
+    /**
+     * Handles errors returned by the API.
+     *
+     * @param object $response The API response object.
+     * @param string $endpoint The endpoint name.
+     * @return mixed The result extracted from the response.
+     * @throws RuntimeException If the API returns an error response or an invalid response.
+     */
     private function handleResponse($response, $endpoint)
     {
         if (isset($response->ok) && $response->ok)
@@ -347,6 +379,12 @@ class MaibApi
         }
     }
 
+    /**
+     * Validates the access token.
+     *
+     * @param string $token The access token to validate.
+     * @throws PaymentException If the access token is not valid.
+     */
     public function validateAccessToken($token)
     {
         if (!is_string($token) || empty($token))
@@ -355,6 +393,12 @@ class MaibApi
         }
     }
 
+    /**
+     * Validates the ID parameter.
+     *
+     * @param mixed $id The ID parameter to validate.
+     * @throws PaymentException If the ID is missing or not valid.
+     */ 
     private function validateIdParam($id)
     {
         if (!isset($id))
@@ -365,9 +409,16 @@ class MaibApi
         {
             throw new PaymentException("Invalid 'ID' parameter. Should be string of 36 characters.");
         }
-
     }
 
+    /**
+     * Validates the parameters.
+     *
+     * @param array $data Request data containing the parameters to validate.
+     * @param array $requiredParams The list of required parameters.
+     * @throws PaymentException If any of the parameters are missing or not valid.
+     * @return bool Returns true if all parameters are valid.
+     */
     private function validatePayParams($data, $requiredParams)
     {
         // Check that all required parameters are present
