@@ -4,46 +4,54 @@ require __DIR__ . '/config.php';
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-if (isset($data['signature']))
-{
-    $data_result = $data['result']; // Data from "result" object
+// Check if the signature is present
+if (isset($data['signature'])) {
+    $data_result = $data['result']; // Extract data from the "result" object
+
+    /**
+     * Sorts an array by keys recursively.
+     *
+     * @param array $array The array to be sorted.
+     * @return array The sorted array.
+     */
     function sortByKeyRecursive(array $array)
     {
         ksort($array, SORT_STRING);
-        foreach ($array as $key => $value)
-        {
-            if (is_array($value))
-            {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
                 $array[$key] = sortByKeyRecursive($value);
             }
         }
         return $array;
     }
 
+    /**
+     * Implode an array recursively with a separator.
+     *
+     * @param string $separator The separator string.
+     * @param array $array The array to be imploded.
+     * @return string The imploded string.
+     */
     function implodeRecursive($separator, $array)
     {
         $result = '';
-        foreach ($array as $item)
-        {
+        foreach ($array as $item) {
             $result .= (is_array($item) ? implodeRecursive($separator, $item) : (string)$item) . $separator;
         }
-
         return substr($result, 0, -1);
     }
 
-    $sortedDataByKeys = sortByKeyRecursive($data_result); //Sort an array by key recursively
-    $sortedDataByKeys[] = SIGNATURE_KEY; //Add Signature Key to the end of data array
-    $signString = implodeRecursive(':', $sortedDataByKeys); // Implode array recursively
-    $sign = base64_encode(hash('sha256', $signString, true)); // Generate signature
-    if ($sign === $data['signature']) // Compare the generated signature with the received signature on Callback URL
-    
-    {
-        // Signature is valid, process the data from $data['result']
-        
-    }
-    else
-    {
+    $sortedDataByKeys = sortByKeyRecursive($data_result); // Sort the data array by keys recursively
+    $sortedDataByKeys[] = SIGNATURE_KEY; // Add the Signature Key to the end of the data array
+    $signString = implodeRecursive(':', $sortedDataByKeys); // Implode the sorted array recursively
+    $sign = base64_encode(hash('sha256', $signString, true)); // Generate the signature
+
+    // Compare the generated signature with the received signature on the Callback URL
+    if ($sign === $data['signature']) {
+        // Signature is valid, process the data
+        // ...
+    } else {
         // Signature is invalid, reject the request
-        
+        // ...
     }
 }
