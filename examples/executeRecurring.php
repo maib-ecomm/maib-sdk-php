@@ -10,7 +10,6 @@ $data = array(
     'billerId' => 't78i8006-458a-46bc-9e0a-89a6ee11df68',
     'amount' => 6.25,
     'currency' => 'EUR',
-    'clientIp' => '135.250.245.121',
     'description' => 'Description',
     'orderId' => '123',
     'delivery' => 1.25,
