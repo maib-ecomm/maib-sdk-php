@@ -28,7 +28,7 @@ $data = array(
     'failUrl' => 'https://examplecom/fail'
 );
 
-// Initiate Execute One-click Payment
+// Initiate execute One-click Payment
 $executeOneclick = MaibApiRequest::create()->executeOneclick($data, $token);
 
 // Save payId in your system
