@@ -8,7 +8,7 @@ $token = $auth->accessToken;
 // Set up the request data
 $data = array(
     'amount' => 10.25,
-    'currency' => 'EUR',
+    'currency' => 'MDL',
     'clientIp' => '135.250.245.121',
     'language' => 'en',
     'description' => 'Description',
