@@ -11,7 +11,7 @@ $data = array(
    'confirmAmount' => 10.25
 );
 
-// Initiate Payment Capture
+// Initiate 2-Step Payment Capture
 $complete = MaibApiRequest::create()->complete($data, $token);
 
 // Display Payment status and data 
