@@ -43,4 +43,4 @@ $orderId = $saveOneclick->orderId;
 header("Location: " . $payUrl);
 die;
 
-// Payment status and data you will receive on the Callback URL
+// Payment status and data will be sent to the Callback URL
