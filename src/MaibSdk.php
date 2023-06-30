@@ -9,35 +9,37 @@
  * @license MIT
  */
 namespace MaibEcomm\MaibSdk;
-class_alias('MaibEcomm\MaibSdk\MaibAuthRequest', 'MaibAuthRequest');
-class_alias('MaibEcomm\MaibSdk\MaibApiRequest', 'MaibApiRequest');
+class_alias("MaibEcomm\MaibSdk\MaibAuthRequest", "MaibAuthRequest");
+class_alias("MaibEcomm\MaibSdk\MaibApiRequest", "MaibApiRequest");
 
 use RuntimeException;
 
-class ClientException extends RuntimeException {}
+class ClientException extends RuntimeException
+{
+}
 
 class MaibSdk
 {
     // maib ecommerce API base url
-    const BASE_URL = 'https://api.maibmerchants.md/v1/';
+    const BASE_URL = "https://api.maibmerchants.md/v1/";
 
     // maib ecommerce API endpoints
-    const GET_TOKEN = 'generate-token';
-    const DIRECT_PAY = 'pay';
-    const HOLD = 'hold';
-    const COMPLETE = 'complete';
-    const REFUND = 'refund';
-    const PAY_INFO = 'pay-info';
-    const SAVE_REC = 'savecard-recurring';
-    const EXE_REC = 'execute-recurring';
-    const SAVE_ONECLICK = 'savecard-oneclick';
-    const EXE_ONECLICK = 'execute-oneclick';
-    const DELETE_CARD = 'delete-card';
+    const GET_TOKEN = "generate-token";
+    const DIRECT_PAY = "pay";
+    const HOLD = "hold";
+    const COMPLETE = "complete";
+    const REFUND = "refund";
+    const PAY_INFO = "pay-info";
+    const SAVE_REC = "savecard-recurring";
+    const EXE_REC = "execute-recurring";
+    const SAVE_ONECLICK = "savecard-oneclick";
+    const EXE_ONECLICK = "execute-oneclick";
+    const DELETE_CARD = "delete-card";
 
     // HTTP request methods
-    const HTTP_GET = 'GET';
-    const HTTP_POST = 'POST';
-    const HTTP_DELETE = 'DELETE';
+    const HTTP_GET = "GET";
+    const HTTP_POST = "POST";
+    const HTTP_DELETE = "DELETE";
 
     private static $instance;
     private $baseUri;
@@ -46,7 +48,7 @@ class MaibSdk
     {
         $this->baseUri = MaibSdk::BASE_URL;
     }
-    
+
     /**
      * Get the instance of MaibSdk (Singleton pattern)
      *
@@ -54,8 +56,7 @@ class MaibSdk
      */
     public static function getInstance()
     {
-        if (!self::$instance)
-        {
+        if (!self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
@@ -120,9 +121,8 @@ class MaibSdk
     {
         $url = $this->baseUri . $uri;
 
-        if ($id !== null)
-        {
-            $url .= '/' . $id;
+        if ($id !== null) {
+            $url .= "/" . $id;
         }
 
         return $url;
@@ -141,31 +141,30 @@ class MaibSdk
     private function sendRequest($method, $url, array $data = [], $token = null)
     {
         $ch = curl_init($url);
-
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); //     remove in prod
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); //     remove in prod
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 
-        if ($method === self::HTTP_POST)
-        {
+        if ($method === self::HTTP_POST) {
             $payload = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            $headers = ["Content-Type: application/json"];
+        } else {
+            $headers = [];
         }
 
-        $headers = ['Content-Type: application/json', ];
-
-        if ($token !== null)
-        {
-            $headers[] = 'Authorization: Bearer ' . $token;
+        if ($token !== null) {
+            $headers[] = "Authorization: Bearer " . $token;
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $response = curl_exec($ch);
 
-        if (curl_errno($ch))
-        {
-            $errorMessage = 'An error occurred: ' . curl_error($ch);
+        if (curl_errno($ch)) {
+            $errorMessage = "An error occurred: " . curl_error($ch);
             curl_close($ch);
             throw new ClientException($errorMessage);
         }
@@ -173,21 +172,27 @@ class MaibSdk
         $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($statusCode >= 400)
-        {
+        if ($statusCode >= 400) {
             $errorMessage = $this->getErrorMessage($response, $statusCode);
-            throw new ClientException('An error occurred: HTTP ' . $statusCode . ': ' . $errorMessage);
+            throw new ClientException(
+                "An error occurred: HTTP " . $statusCode . ": " . $errorMessage
+            );
         }
 
         $decodedResponse = json_decode($response, false);
 
-        if (json_last_error() !== JSON_ERROR_NONE)
-        {
-            throw new ClientException('Failed to decode response: ' . json_last_error_msg());
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new ClientException(
+                "Failed to decode response: " . json_last_error_msg()
+            );
         }
 
         // Debugging statement to log the request and response
-        error_log("Request: $method $url " . json_encode($data) . " Response: $response");
+        error_log(
+            "Request: $method $url " .
+                json_encode($data) .
+                " Response: $response"
+        );
 
         return $decodedResponse;
     }
@@ -201,18 +206,13 @@ class MaibSdk
      */
     private function getErrorMessage($response, $statusCode)
     {
-        $errorMessage = '';
-        if ($response)
-        {
+        $errorMessage = "";
+        if ($response) {
             $responseObj = json_decode($response);
-            if (isset($responseObj->errors[0]
-                ->errorMessage))
-            {
+            if (isset($responseObj->errors[0]->errorMessage)) {
                 $errorMessage = $responseObj->errors[0]->errorMessage;
-            }
-            else
-            {
-                $errorMessage = 'Unknown error details.';
+            } else {
+                $errorMessage = "Unknown error details.";
             }
         }
         return $errorMessage;
