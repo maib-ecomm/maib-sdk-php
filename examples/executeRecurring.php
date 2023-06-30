@@ -29,7 +29,11 @@ $data = array(
 // Initiate execute Recurring Payment
 $executeRecurring = MaibApiRequest::create()->executeRecurring($data, $token);
 
-// Update status payment in your system
+// Display Recurring Payment status and data 
+$jsonData = json_encode($complete);
+echo $jsonData;
+
+// Receive Recurring Payment status and data 
 $billerId = $executeRecurring->billerId;
 $payId = $executeRecurring->payId;
 $orderId = $executeRecurring->orderId;
