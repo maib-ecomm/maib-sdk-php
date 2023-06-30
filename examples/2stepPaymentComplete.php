@@ -7,16 +7,21 @@ $token = $auth->accessToken;
 
 // Set up the payment data
 $data = array(
-   'payId' => 'f16a9006-128a-46bc-8e2a-77a6ee99df75',
+   'payId' => '6ca6f3b5-cd10-4d92-9933-bc5808fdcdbd',
    'confirmAmount' => 10.25
 );
 
 // Initiate Payment Capture
 $complete = MaibApiRequest::create()->complete($data, $token);
 
+// Display Payment status and data 
+$jsonData = json_encode($complete);
+echo $jsonData;
+
 // Receive Payment status and data 
 $payId = $complete->payId;
 $orderId = $complete->orderId;
+$cardNumber = $complete->cardNumber;
 $status = $complete->status;
 $statusMessage= $complete->statusMessage;
 $confirmAmount = $complete->confirmAmount;
