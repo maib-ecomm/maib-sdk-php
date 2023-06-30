@@ -6,15 +6,18 @@ $auth = MaibAuthRequest::create()->generateToken(PROJECT_ID, PROJECT_SECRET);
 $token = $auth->accessToken;
 
 // Payment ID example
-$id = 'f16a9006-128a-46bc-8e2a-77a6ee99df75';
+$id = '7c369f7f-140d-469c-b3ef-b7d06f2f8823';
 
 // Initiate Payment Info
 $payInfo = MaibApiRequest::create()->payInfo($id, $token);
 
-// Receive Payment status and data 
+// Display Payment Info
+$jsonData = json_encode($payInfo);
+echo $jsonData;
+
+// Receive Payment Info 
 $payId = $payInfo->payId;
-$orderId = $payInfo->orderId;
 $status = $payInfo->status;
-$statusMessage= $payInfo->statusMessage;
+$statusMessage = $payInfo->statusMessage;
 $amount = $payInfo->amount;
 $currency = $payInfo->currency;
