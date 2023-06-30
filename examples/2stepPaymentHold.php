@@ -36,7 +36,7 @@ $data = array(
     'failUrl' => 'https://examplecom/fail'
 );
 
-// Initiate Payment Authorization
+// Initiate 2-Step Payment Authorization
 $hold = MaibApiRequest::create()->hold($data, $token);
 
 // Save payId in your system
