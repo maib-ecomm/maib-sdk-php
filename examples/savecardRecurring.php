@@ -31,7 +31,7 @@ $data = array(
     'failUrl' => 'https://examplecom/fail'
 );
 
-// Initiate Direct Payment
+// Initiate Recurring Payment (Card Registration)
 $saveRecurring = MaibApiRequest::create()->saveRecurring($data, $token);
 
 // Save payId in your system
