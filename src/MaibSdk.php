@@ -21,7 +21,7 @@ class ClientException extends RuntimeException
 class MaibSdk
 {
     // maib ecommerce API base url
-    const BASE_URL = "https://api.maibmerchants.md/v1/";
+    const BASE_URL = "https://maibmerchants.md/v1/";
 
     // maib ecommerce API endpoints
     const GET_TOKEN = "generate-token";
@@ -141,8 +141,6 @@ class MaibSdk
     private function sendRequest($method, $url, array $data = [], $token = null)
     {
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); //     remove in prod
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); //     remove in prod
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
