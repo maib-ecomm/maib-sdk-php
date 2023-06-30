@@ -31,7 +31,7 @@ $data = array(
     'failUrl' => 'https://examplecom/fail'
 );
 
-// Initiate Direct Payment
+// Initiate One-Click Payment (Card Registration)
 $saveOneclick = MaibApiRequest::create()->saveOneclick($data, $token);
 
 // Save payId in your system
