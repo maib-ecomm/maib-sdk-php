@@ -26,7 +26,7 @@ $data = array(
     'failUrl' => 'https://examplecom/fail'
 );
 
-// Initiate Direct Payment
+// Initiate execute Recurring Payment
 $executeRecurring = MaibApiRequest::create()->executeRecurring($data, $token);
 
 // Update status payment in your system
