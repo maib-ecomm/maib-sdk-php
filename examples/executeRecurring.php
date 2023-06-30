@@ -30,7 +30,7 @@ $data = array(
 $executeRecurring = MaibApiRequest::create()->executeRecurring($data, $token);
 
 // Display Recurring Payment status and data 
-$jsonData = json_encode($complete);
+$jsonData = json_encode($executeRecurring);
 echo $jsonData;
 
 // Receive Recurring Payment status and data 
