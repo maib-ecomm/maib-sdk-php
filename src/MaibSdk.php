@@ -21,7 +21,7 @@ class ClientException extends RuntimeException
 class MaibSdk
 {
     // maib ecommerce API base url
-    const BASE_URL = "https://maibmerchants.md/v1/";
+    const BASE_URL = "https://api.maibmerchants.md/v1/";
 
     // maib ecommerce API endpoints
     const GET_TOKEN = "generate-token";
