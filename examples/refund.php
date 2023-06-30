@@ -7,15 +7,18 @@ $token = $auth->accessToken;
 
 // Set up Refund parameters
 $data = array(
-   'payId' => 'f16a9006-128a-46bc-8e2a-77a6ee99df75',
+   'payId' => '530d6df6-bfee-47a5-af9a-dd8b3d3a94e4',
    'refundAmount' => 10.25
 );
 
 // Initiate Payment Refund 
 $refund = MaibApiRequest::create()->refund($data, $token);
 
-// Update Payment status in your DB
+// Display Refund status and data
+$jsonData = json_encode($refund);
+echo $jsonData;
+
+// Receive Refund status and data
 $payId = $refund->payId;
 $status = $refund->status;
 $statusMessage= $refund->statusMessage;
-$refundAmount = $refund->refundAmount;
