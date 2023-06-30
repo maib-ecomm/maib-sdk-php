@@ -8,9 +8,13 @@ $token = $auth->accessToken;
 //Example format ID
 $id = "f16a9006-128a-46bc-8e2a-77a6ee99df75";
 
-// Initiate Payment Info
-$delete = MaibApiRequest::create()->deleteCard($id, $token);
+// Initiate Delete Card (onec-click and recurring payments)
+$deleteCard = MaibApiRequest::create()->deleteCard($id, $token);
 
-// Receive Payment status and data 
-$billerId = $delete->billerId;
-$status = $delete->status;
+// Display request data
+$jsonData = json_encode($deleteCard);
+echo $jsonData;
+
+// Receive request data 
+$billerId = $deleteCard->billerId;
+$status = $deleteCard->status;
