@@ -150,7 +150,7 @@ class MaibSdk
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
             $headers = ["Content-Type: application/json"];
         } else {
-            $headers = [];
+            $headers = ["Content-Type: x-www-form-urlencoded"];
         }
 
         if ($token !== null) {
