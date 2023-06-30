@@ -7,9 +7,9 @@ $token = $auth->accessToken;
 
 // Set up the request data
 $data = array(
-    'billerId' => 't78i8006-458a-46bc-9e0a-89a6ee11df68',
+    'billerId' => '8a90269f-cebd-4b23-1f85-08db7982298c',
     'amount' => 6.25,
-    'currency' => 'EUR',
+    'currency' => 'USD',
     'description' => 'Description',
     'orderId' => '123',
     'delivery' => 1.25,
@@ -20,10 +20,7 @@ $data = array(
             'price' => 2.50,
             'quantity' => 2
         )
-    ),
-    'callbackUrl' => 'https://example.com/callback',
-    'okUrl' => 'https://example.com/ok',
-    'failUrl' => 'https://examplecom/fail'
+    )
 );
 
 // Initiate execute Recurring Payment
