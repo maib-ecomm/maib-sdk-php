@@ -14,7 +14,7 @@ $data = array(
 // Initiate 2-Step Payment Capture
 $complete = MaibApiRequest::create()->complete($data, $token);
 
-// Display Payment status and data 
+// Display request response
 $jsonData = json_encode($complete);
 echo $jsonData;
 
