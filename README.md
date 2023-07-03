@@ -118,8 +118,13 @@ $data = array(
 // Complete 2-Step Payment
 $complete = MaibApiRequest::create()->complete($data, $token);
 
+// Display request response
+$jsonData = json_encode($deleteCard);
+echo $jsonData;
+
 // Update Payment status in your DB
 $payId = $complete->payId;
+$cardNumber = $complete->cardNumber;
 $status = $complete->status;
 $statusMessage= $complete->statusMessage;
 $confirmAmount = $complete->confirmAmount;
@@ -134,6 +139,10 @@ $data = array(
 
 // Initiate Refund Payment
 $refund = MaibApiRequest::create()->refund($data, $token);
+
+// Display request response
+$jsonData = json_encode($deleteCard);
+echo $jsonData;
 
 // Update Payment status in your DB
 $payId = $refund->payId;
