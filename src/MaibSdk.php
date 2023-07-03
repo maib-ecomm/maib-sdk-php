@@ -12,9 +12,7 @@ namespace MaibEcomm\MaibSdk;
 
 use RuntimeException;
 
-class ClientException extends RuntimeException
-{
-}
+class ClientException extends RuntimeException {}
 
 class MaibSdk
 {
