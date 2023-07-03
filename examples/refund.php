@@ -22,3 +22,4 @@ echo $jsonData;
 $payId = $refund->payId;
 $status = $refund->status;
 $statusMessage= $refund->statusMessage;
+$refundAmount = $refund->refundAmount;
