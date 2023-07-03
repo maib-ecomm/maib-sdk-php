@@ -11,7 +11,7 @@ $id = '7c369f7f-140d-469c-b3ef-b7d06f2f8823';
 // Initiate Payment Info
 $payInfo = MaibApiRequest::create()->payInfo($id, $token);
 
-// Display Payment Info
+// Display request response
 $jsonData = json_encode($payInfo);
 echo $jsonData;
 
