@@ -14,7 +14,7 @@ $data = array(
 // Initiate Payment Refund 
 $refund = MaibApiRequest::create()->refund($data, $token);
 
-// Display Refund status and data
+// Display request response
 $jsonData = json_encode($refund);
 echo $jsonData;
 
