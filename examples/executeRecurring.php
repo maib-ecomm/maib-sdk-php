@@ -38,3 +38,7 @@ $status = $executeRecurring->status;
 $statusMessage= $executeRecurring->statusMessage;
 $amount = $executeRecurring->amount;
 $currency = $executeRecurring->currency;
+$cardNumber = $executeRecurring->cardNumber;
+$rrn = $executeRecurring->rrn;
+$approval = $executeRecurring->approval;
+
