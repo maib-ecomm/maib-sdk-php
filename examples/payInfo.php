@@ -21,3 +21,4 @@ $status = $payInfo->status;
 $statusMessage = $payInfo->statusMessage;
 $amount = $payInfo->amount;
 $currency = $payInfo->currency;
+$cardNumber = $payInfo->cardNumber;
