@@ -16,10 +16,10 @@ if (isset($data['signature'])) {
     // Compare the generated signature with the received signature on the Callback URL
     if ($sign === $data['signature']) {
         // Signature is valid, process the data
-        // ...
+        echo "Signature is valid!";
     } else {
         // Signature is invalid, reject the request
-        // ...
+         echo "Signature is invalid!";
     }
 }
 
