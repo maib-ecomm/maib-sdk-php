@@ -25,11 +25,12 @@ Download the latest release and include the config.php file in your project.
 ```
 require_once('/path/to/examples/config.php');
 ```
-## Getting started
-Add SDK class:
+## Getting started with Composer
+Add SDK classes:
 ```
 <?php 
 require_once 'vendor/autoload.php';
+
 use MaibEcomm\MaibSdk\MaibAuthRequest;
 use MaibEcomm\MaibSdk\MaibApiRequest;
 ```
