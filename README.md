@@ -30,9 +30,10 @@ Add SDK class:
 ```
 <?php 
 require_once 'vendor/autoload.php';
-use MaibEcomm\MaibSdk;
+use MaibEcomm\MaibSdk\MaibAuthRequest;
+use MaibEcomm\MaibSdk\MaibApiRequest;
 ```
-Add configurations:
+Add Project configurations:
 ```
 define('PROJECT_ID', 'YOUR_PROJECT_ID');
 define('PROJECT_SECRET', 'YOUR_PROJECT_SECRET');
