@@ -122,7 +122,7 @@ $complete = MaibApiRequest::create()->complete($data, $token);
 $jsonData = json_encode($deleteCard);
 echo $jsonData;
 
-// Update Payment status in your DB
+// Receive Payment status and data 
 $payId = $complete->payId;
 $cardNumber = $complete->cardNumber;
 $status = $complete->status;
@@ -144,7 +144,7 @@ $refund = MaibApiRequest::create()->refund($data, $token);
 $jsonData = json_encode($deleteCard);
 echo $jsonData;
 
-// Update Payment status in your DB
+// Receive Refund status
 $payId = $refund->payId;
 $status = $refund->status;
 $statusMessage= $refund->statusMessage;
@@ -158,12 +158,19 @@ $id = 'f16a9006-128a-46bc-8e2a-77a6ee99df75';
 // Initiate Payment Info
 $payInfo = MaibApiRequest::create()->payInfo($id, $token);
 
+// Display request response
+$jsonData = json_encode($executeRecurring);
+echo $jsonData;
+
 // Receive Payment status and data 
 $payId = $payInfo->payId;
 $status = $payInfo->status;
-$statusMessage= $payInfo->statusMessage;
+$statusMessage = $payInfo->statusMessage;
 $amount = $payInfo->amount;
 $currency = $payInfo->currency;
+$cardNumber = $payInfo->cardNumber;
+$rrn = $executeRecurring->rrn;
+$approval = $executeRecurring->approval;
 ```
 ### Recurring Payments. Card Registration:
 ```
@@ -200,13 +207,21 @@ $data = array(
 // Execute Recurring Payment
 $executeRecurring = MaibApiRequest::create()->executeRecurring($data, $token);
 
+// Display request response
+$jsonData = json_encode($executeRecurring);
+echo $jsonData;
+
 // Save payment status and data in your system
 $billerId = $executeRecurring->billerId;
 $payId = $executeRecurring->payId;
+$orderId = $executeRecurring->orderId;
 $status = $executeRecurring->status;
 $statusMessage= $executeRecurring->statusMessage;
 $amount = $executeRecurring->amount;
 $currency = $executeRecurring->currency;
+$cardNumber = $executeRecurring->cardNumber;
+$rrn = $executeRecurring->rrn;
+$approval = $executeRecurring->approval;
 ```
 ### One-Click Payments. Card Registration:
 ```
