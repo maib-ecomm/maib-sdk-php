@@ -21,7 +21,7 @@ To use the package, use Composer's autoload:
 require_once 'vendor/autoload.php';
 ```
 ### Manual
-Download the latest release and include the config.php file in your project.
+Download the latest release and include the *config.php*  file in your project.
 ```
 require_once('/path/to/examples/config.php');
 ```
