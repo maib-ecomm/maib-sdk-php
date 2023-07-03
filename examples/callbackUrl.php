@@ -19,7 +19,7 @@ if (isset($data['signature'])) {
         echo "Signature is valid!";
     } else {
         // Signature is invalid, reject the request
-         echo "Signature is invalid!";
+        echo "Signature is invalid!";
     }
 }
 
