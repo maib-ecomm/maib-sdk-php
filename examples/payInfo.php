@@ -17,6 +17,7 @@ echo $jsonData;
 
 // Receive Payment Info 
 $payId = $payInfo->payId;
+$orderId = $complete->orderId;
 $status = $payInfo->status;
 $statusMessage = $payInfo->statusMessage;
 $amount = $payInfo->amount;
