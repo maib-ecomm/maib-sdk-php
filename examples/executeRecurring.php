@@ -26,7 +26,7 @@ $data = array(
 // Initiate execute Recurring Payment
 $executeRecurring = MaibApiRequest::create()->executeRecurring($data, $token);
 
-// Display Recurring Payment status and data 
+// Display request response
 $jsonData = json_encode($executeRecurring);
 echo $jsonData;
 
