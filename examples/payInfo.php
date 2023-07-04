@@ -17,11 +17,11 @@ echo $jsonData;
 
 // Receive Payment Info 
 $payId = $payInfo->payId;
-$orderId = $complete->orderId;
+$orderId = $payInfo->orderId;
 $status = $payInfo->status;
 $statusMessage = $payInfo->statusMessage;
 $amount = $payInfo->amount;
 $currency = $payInfo->currency;
 $cardNumber = $payInfo->cardNumber;
-$rrn = $executeRecurring->rrn;
-$approval = $executeRecurring->approval;
+$rrn = $payInfo->rrn;
+$approval = $payInfo->approval;
