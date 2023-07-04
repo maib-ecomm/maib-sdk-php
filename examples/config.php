@@ -3,8 +3,8 @@ require __DIR__ . '/../src/MaibAuthRequest.php';
 require __DIR__ . '/../src/MaibApiRequest.php';
 require __DIR__ . '/../src/MaibSdk.php';
 
-use MaibEcomm\MaibSdk\MaibAuthRequest;
-use MaibEcomm\MaibSdk\MaibApiRequest;
+class_alias("MaibEcomm\MaibSdk\MaibAuthRequest", "MaibAuthRequest");
+class_alias("MaibEcomm\MaibSdk\MaibApiRequest", "MaibApiRequest");
 
 // Project settings from maibmerchants.md
 // Project Secret and Signature Key are available after Project activation
