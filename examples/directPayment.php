@@ -33,7 +33,7 @@ $data = array(
     ),
     'callbackUrl' => 'https://example.com/callback',
     'okUrl' => 'https://example.com/ok',
-    'failUrl' => 'https://examplecom/fail'
+    'failUrl' => 'https://example.com/fail'
 );
 
 // Initiate Direct Payment
