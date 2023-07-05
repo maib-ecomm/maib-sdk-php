@@ -4,7 +4,7 @@ API docs: [https://docs.maibmerchants.md](https://docs.maibmerchants.md)
 It is necessary to be registered on [maibmerchants](https://maibmerchants.md).
 
 ## Requirements
-PHP >= 7.2
+PHP >= 5.6
 
 The following PHP extensions are required:
 
