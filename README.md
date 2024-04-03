@@ -1,5 +1,5 @@
-# PHP SDK for **maib** ecommerce API
 [![N|Solid](https://www.maib.md/images/logo.svg)](https://www.maib.md)
+# PHP SDK for **maib** ecommerce API
 
 **maib** e-commerce API docs: [https://docs.maibmerchants.md](https://docs.maibmerchants.md)
 
