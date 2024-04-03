@@ -1,5 +1,6 @@
 # PHP SDK for **maib** ecommerce API
-API docs: [https://docs.maibmerchants.md](https://docs.maibmerchants.md)
+
+**maib** e-commerce API docs: [https://docs.maibmerchants.md](https://docs.maibmerchants.md)
 
 ## Requirements
 PHP >= 5.6
